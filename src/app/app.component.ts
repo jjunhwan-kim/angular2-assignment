@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular2-assignment';
+  username = 'test';
+
+  onReset() {
+    this.username = '';
+  }
 }
