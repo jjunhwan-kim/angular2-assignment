@@ -11,6 +11,9 @@ export class AppComponent {
   showSecret = false;
   log = [];
 
+  oddNumbers: number[] = [];
+  evenNumbers: number[] = [];
+
   onReset() {
     this.username = '';
   }
@@ -18,5 +21,13 @@ export class AppComponent {
   onToggleDetails() {
     this.showSecret = !this.showSecret;
     this.log.push(new Date());
+  }
+
+  onIntervalFired(firedNuember: number) {
+    if (firedNuember % 2 === 0) {
+      this.evenNumbers.push(firedNuember);
+    } else {
+      this.oddNumbers.push(firedNuember);
+    }
   }
 }
