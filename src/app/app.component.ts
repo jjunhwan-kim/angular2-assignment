@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CustomValidators } from './custom-validators';
 import { UserService } from './users.service';
 
 @Component({
@@ -7,7 +9,7 @@ import { UserService } from './users.service';
   styleUrls: ['./app.component.css'],
   providers: [UserService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'angular2-assignment';
   username = 'test';
   showSecret = false;
@@ -15,6 +17,8 @@ export class AppComponent {
 
   oddNumbers: number[] = [];
   evenNumbers: number[] = [];
+
+  projectForm: FormGroup;
   
   onReset() {
     this.username = '';
@@ -31,5 +35,17 @@ export class AppComponent {
     } else {
       this.oddNumbers.push(firedNuember);
     }
+  }
+
+  ngOnInit(): void {
+    this.projectForm = new FormGroup({
+      'projectName': new FormControl(null, [Validators.required, CustomValidators.invalidProjectName], CustomValidators.asyncInvalidProjectName),
+      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'projectStatus': new FormControl('critical')
+    });
+  }
+
+  onSaveProject() {
+    console.log(this.projectForm.value);
   }
 }
